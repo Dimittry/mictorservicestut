@@ -1,7 +1,10 @@
 package com.microservicestut.infrastructure;
 
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
+import static java.util.concurrent.Executors.newScheduledThreadPool;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 
 public class StubService implements Runnable{
@@ -17,5 +20,10 @@ public class StubService implements Runnable{
     @Override
     public void run() {
         newSingleThreadExecutor(new DaemonThreadFactory()).submit(server);
+
+        ScheduledFuture<?> scheduledFuture = newScheduledThreadPool(1).
+                scheduleAtFixedRate(
+                        ()-> serverEndpoint.onMessage(messageGenerator.get()),
+                        3,1, TimeUnit.SECONDS);
     }
 }
