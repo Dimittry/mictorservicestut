@@ -7,14 +7,11 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-/**
- * Created by Dimon on 06.12.2016.
- */
 public class Dashboard extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url = new URL("classpath:");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+        System.err.println(getClass());
         primaryStage.setTitle("Twitter Dashboard");
         Scene scene = new Scene(loader.load(), 1024, 1024);
         scene.getStylesheets().add("dashboard.css");
