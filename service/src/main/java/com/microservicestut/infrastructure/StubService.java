@@ -1,5 +1,6 @@
 package com.microservicestut.infrastructure;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -24,6 +25,11 @@ public class StubService implements Runnable{
         ScheduledFuture<?> scheduledFuture = newScheduledThreadPool(1).
                 scheduleAtFixedRate(
                         ()-> serverEndpoint.onMessage(messageGenerator.get()),
-                        3,1, TimeUnit.SECONDS);
+                        0, 500, TimeUnit.MICROSECONDS);
+        try {
+            scheduledFuture.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }

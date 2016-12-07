@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static javafx.application.Platform.runLater;
@@ -21,12 +22,28 @@ public class LeaderboardData implements MessageListener<String> {
     @Override
     public void onMessage(String twitterHandle) {
         TwitterUser twitterUser
-                = allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new);
+                 = allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new);
+//                = allTwitterUsers.computeIfAbsent(twitterHandle,
+//                    new Function<String, TwitterUser>(){
+//                        @Override
+//                        public TwitterUser apply(String message) {
+//                            return new TwitterUser(message);
+//                        }
+//
+//                    }
+//                );
         twitterUser.incrementCount();
 
         List<TwitterUser> topTweeters =
                 allTwitterUsers.values().stream()
                     .sorted(Comparator.comparing(TwitterUser::getTweets).reversed())
+//                        .sorted(new Comparator<TwitterUser>(){
+//                            @Override
+//                            public int compare(TwitterUser o1, TwitterUser o2) {
+//                                return o2.getTweets() - o1.getTweets();
+//                            }
+//
+//                        })
                     .limit(NUMBER_OF_LEADERS)
                     .collect(Collectors.toList());
         runLater(() -> items.setAll(topTweeters));
