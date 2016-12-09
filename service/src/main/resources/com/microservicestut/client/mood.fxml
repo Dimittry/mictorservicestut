@@ -1,0 +1,8 @@
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.chart.PieChart?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      spacing="10" alignment="CENTER"
+      fx:controller="com.microservicestut.client.mood.MoodController">
+    <PieChart title="Overall Mood" fx:id="overallMood"/>
+</VBox>
