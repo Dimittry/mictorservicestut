@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import static com.microservicestut.client.mood.Mood.HAPPY;
 import static com.microservicestut.client.mood.Mood.SAD;
+import static com.microservicestut.client.twitter.TweetParser.getTweetMessageFrom;
 
 public class MoodAnalyser {
     private static final Map<String, Mood> WORD_TO_MOOD = new HashMap<>();
@@ -21,6 +22,7 @@ public class MoodAnalyser {
         WORD_TO_MOOD.put("keen", HAPPY);
         WORD_TO_MOOD.put("awesome", HAPPY);
         WORD_TO_MOOD.put("marvelous", HAPPY);
+        WORD_TO_MOOD.put("collected", HAPPY);
         WORD_TO_MOOD.put("yay", HAPPY);
         WORD_TO_MOOD.put("pleased", HAPPY);
         WORD_TO_MOOD.put("sad", SAD);
@@ -36,13 +38,17 @@ public class MoodAnalyser {
     private MoodAnalyser() {
     }
 
-    public static MoodService analyseMood(String message) {
-        String wordsInMessage = getTweetMessageFrom(fullMessage).split(" ");
+    public static MoodyMessage analyseMood(String message) {
+        System.err.println("analyseMood");
+        System.err.println(message);
+        String[] wordsInMessage = getTweetMessageFrom(message).split(" ");
         Set<Mood> moods = Stream.of(wordsInMessage)
                                 .map(String::toLowerCase)
                                 .map(WORD_TO_MOOD::get)
                                 .filter(Objects::nonNull)
                                 .collect(Collectors.toSet());
+        System.err.println("MOODS");
+        System.err.println(moods);
         return new MoodyMessage(moods);
     }
 }

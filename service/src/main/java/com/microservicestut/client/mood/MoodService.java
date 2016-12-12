@@ -4,7 +4,7 @@ import com.microservicestut.infrastructure.MessageHandler;
 import com.microservicestut.infrastructure.Service;
 
 public class MoodService implements Runnable {
-    private final Service<MoodService> service;
+    private final Service<MoodyMessage> service;
 
     public MoodService() {
         service = new Service<>("ws://localhost:8081/tweets/", "/moods/",
@@ -19,6 +19,10 @@ public class MoodService implements Runnable {
 
     public void stop() throws Exception {
         service.stop();
+    }
+
+    public static void main(String[] args) {
+        new MoodService().run();
     }
 
 }
