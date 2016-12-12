@@ -57,7 +57,7 @@ public class CannedTweetsService implements Runnable {
 
     private void addArtificialDelay() {
         try {
-            TimeUnit.MILLISECONDS.sleep(5);
+            TimeUnit.MILLISECONDS.sleep(500);
         } catch(InterruptedException e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
