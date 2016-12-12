@@ -34,6 +34,7 @@ public class ClientEndpoint<T> {
     @OnError
     public void onError(Throwable error) {
         LOGGER.warning("Error received: " + error.getMessage());
+        LOGGER.warning(error.toString());
         close();
         naiveReconnectRetry();
     }
@@ -49,7 +50,8 @@ public class ClientEndpoint<T> {
     }
 
     public void connect() {
-        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        WebSocketContainer container
+                = ContainerProvider.getWebSocketContainer();
         try {
             session = container.connectToServer(this, serverEndpoint);
             LOGGER.info("Connected to: " + serverEndpoint);

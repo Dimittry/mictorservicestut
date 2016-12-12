@@ -28,7 +28,7 @@ public class Dashboard extends Application {
         userClient.connect();
 
         ClientEndpoint<TweetMood> moodClientEndpoint
-                = new ClientEndpoint<TweetMood>("ws://localhost:8084/moods/", message -> MoodsParser.parse(message));
+                = new ClientEndpoint<TweetMood>("ws://localhost:8082/moods/", message -> MoodsParser.parse(message));
         moodClientEndpoint.addListener(moodChartData);
         moodClientEndpoint.addListener(happinessChartData);
         moodClientEndpoint.connect();
@@ -37,7 +37,7 @@ public class Dashboard extends Application {
         primaryStage.setTitle("Twitter Dashboard");
         Scene scene = new Scene(loader.load(), 1024, 1024);
         scene.getStylesheets().add("dashboard.css");
-
+        System.err.println(leaderboardData);
         DashboardController dashboardController = loader.getController();
         dashboardController.getLeaderboardController().setData(leaderboardData);
         dashboardController.getMoodController().setData(moodChartData);

@@ -21,6 +21,7 @@ public class LeaderboardData implements MessageListener<String> {
 
     @Override
     public void onMessage(String twitterHandle) {
+        System.err.println(twitterHandle);
         TwitterUser twitterUser
                  = allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new);
 //                = allTwitterUsers.computeIfAbsent(twitterHandle,

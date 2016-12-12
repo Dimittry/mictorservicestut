@@ -22,15 +22,15 @@ public class Service<T> implements Runnable {
 
     public static void main(String[] args) throws IOException, DeploymentException {
         new Service<>("ws://localhost:8081/tweets/", "/testing", 8090,
-                originalText -> originalText);
+                originalText -> originalText).run();
     }
 
     @Override
     public void run() {
         try {
             BroadcastingServerEndpoint<T> broadcastingServerEndpoint
-                    = new BroadcastingServerEndpoint<T>();
-            clientEndpoint = new ClientEndpoint<T>(endpointToConnect, messageHandler);
+                    = new BroadcastingServerEndpoint<>();
+            clientEndpoint = new ClientEndpoint<>(endpointToConnect, messageHandler);
             clientEndpoint.addListener(broadcastingServerEndpoint);
             clientEndpoint.connect();
 

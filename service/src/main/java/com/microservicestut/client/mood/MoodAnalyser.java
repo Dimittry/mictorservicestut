@@ -33,6 +33,8 @@ public class MoodAnalyser {
         WORD_TO_MOOD.put("horrible", SAD);
         WORD_TO_MOOD.put("bad", SAD);
         WORD_TO_MOOD.put("awful", SAD);
+        WORD_TO_MOOD.put("food", SAD);
+        WORD_TO_MOOD.put("harvested", SAD);
     }
 
     private MoodAnalyser() {
