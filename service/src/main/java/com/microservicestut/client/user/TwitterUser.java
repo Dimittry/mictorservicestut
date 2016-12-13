@@ -34,4 +34,8 @@ public class TwitterUser {
     public void incrementCount() {
         tweets.set(count.incrementAndGet());
     }
+
+    public String toString() {
+        return twitterHandle.get();
+    }
 }

@@ -1,7 +1,8 @@
 package com.microservicestut.client.twitter;
 
 public interface TweetParser {
-    static int TEXT_ORDER = 5;
+    int TEXT_ORDER = 5;
+    int NAME_ORDER = 3;
     static String getTweetMessageFrom(String fullTweet) {
         System.err.println("FULLTWEET");
         System.err.println(fullTweet);
@@ -14,7 +15,12 @@ public interface TweetParser {
         return fullTweet.split(",")[TEXT_ORDER];
     }
 
-//    static String getTwitterHandleFrom(String fullTweet) {
-//        String twitterHandleFieldName = ""
-//    }
+    static String getTwitterHandleFrom(String fullTweet) {
+        String result;
+        String[] tweetParts = fullTweet.split(",");
+        String name = tweetParts[NAME_ORDER];
+        String[] nameParts = name.split(" ");
+        result = nameParts[0].replace("\"", "");
+        return (result == null) ? "" : result;
+    }
 }
